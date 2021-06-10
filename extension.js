@@ -75,7 +75,7 @@ function setButtonText() {
     /*通过终端命令 curl 调取一言 api 获取短句*/
     var [ok, out, err, exit] = GLib.spawn_command_line_sync('curl -s https://v1.hitokoto.cn/?encode=text');
     /*将短句进行格式化，取出尾部换行符*/
-    panelButtonText.set_text(out.toString().replace('\n', ''));
+    panelButtonText.set_text(out.toString().replace(/[。.？?！!]|\n/, ''));
     return true;
 }
 
