@@ -49,7 +49,7 @@ class Indicator extends PanelMenu.Button {
         });
         /*St.Label()创建一个普通文本框，text：显示的文本 style_class：按钮 CSS 样式的 class 名称 -> stylesheet.css*/
         panelButtonText = new St.Label({
-            text: '世界那么大，还是遇见你！',
+            text: '世界那么大，还是遇见你',
             x_align: Clutter.ActorAlign.START,
             y_align: Clutter.ActorAlign.CENTER,
             style_class: 'examplePanelText',
