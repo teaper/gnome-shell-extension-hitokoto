@@ -1,2 +1,7 @@
-# gnome-shell-extension-hitokoto
-gnome 40 一言插件
+## 一言插件
+### 安装方式
+**ArchLinux**
+```bash
+yay -S gnome-shell-extension-hitokoto
+```
+

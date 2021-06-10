@@ -1,0 +1,10 @@
+{
+  "name": "Hitokoto",
+  "description": "一言短句",
+  "uuid": "Hitokoto@teaper.dev",
+  "shell-version": [
+    "40"
+  ],
+  "url": "https://github.com/teaper/gnome-shell-extension-hitokoto",
+  "version": 1
+}
