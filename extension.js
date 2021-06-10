@@ -45,7 +45,7 @@ class Indicator extends PanelMenu.Button {
         panelButton = new St.Bin({
             x_align: Clutter.ActorAlign.START,
             y_align: Clutter.ActorAlign.CENTER,
-            style: "margin-left: 5px; width:250px;",
+            style: "margin-left: 5px; left:0px;",
         });
         /*St.Label()创建一个普通文本框，text：显示的文本 style_class：按钮 CSS 样式的 class 名称 -> stylesheet.css*/
         panelButtonText = new St.Label({
