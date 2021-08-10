@@ -21,6 +21,8 @@
 const GETTEXT_DOMAIN = 'my-indicator-extension';
 /*导入 Glib 以访问终端命令，Clutter 以直接写 css 样式*/
 const { Clutter, GLib, GObject, St } = imports.gi;
+/* 使用 ByteArray 代替原来的 array.toString() 进行显示转化*/
+const ByteArray = imports.byteArray;
 
 const Gettext = imports.gettext.domain(GETTEXT_DOMAIN);
 const _ = Gettext.gettext;
@@ -75,7 +77,7 @@ function setButtonText() {
     /*通过终端命令 curl 调取一言 api 获取短句*/
     var [ok, out, err, exit] = GLib.spawn_command_line_sync('curl -s https://v1.hitokoto.cn/?encode=text');
     /*将短句进行格式化，取出尾部换行符*/
-    panelButtonText.set_text(out.toString().replace(/[。.？?！!]|\n/, ''));
+    panelButtonText.set_text(ByteArray.toString(out).replace(/[。.？?！!]|\n/, ''));
     return true;
 }
 
@@ -89,8 +91,10 @@ class Extension {
     enable() {
         this._indicator = new Indicator();
         Main.panel.addToStatusArea(this._uuid, this._indicator);
-        /*在开启插件的时候计时开始,1 秒运行一次*/
-        timeout = Mainloop.timeout_add_seconds(10.0, setButtonText);
+        /*在开启插件的时候计时开始,10 秒运行一次*/
+        timeout = Mainloop.timeout_add_seconds(10, setButtonText);
+        return true;
+
     }
 
     disable() {
