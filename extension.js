@@ -100,6 +100,7 @@ class Extension {
     disable() {
         /*在禁用的时候删除超时*/
         Mainloop.source_remove(timeout);
+        Main.panel._leftBox.remove_child(panelButton);
 
         this._indicator.destroy();
         this._indicator = null;
