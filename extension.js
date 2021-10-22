@@ -23,7 +23,6 @@ const GETTEXT_DOMAIN = 'my-indicator-extension';
 const { Clutter, GLib, GObject, St } = imports.gi;
 /* 使用 ByteArray 代替原来的 array.toString() 进行显示转化*/
 const ByteArray = imports.byteArray;
-
 const Gettext = imports.gettext.domain(GETTEXT_DOMAIN);
 const _ = Gettext.gettext;
 
@@ -34,10 +33,9 @@ const Mainloop = imports.mainloop;
 /*创建一个文本按钮，一个 timeout 变量，和一个计数变量 counter*/
 let panelButton, panelButtonText, timeout;
 /*let counter = 0;*/
-
+const Soup = imports.gi.Soup;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-
 const Indicator = GObject.registerClass(
 class Indicator extends PanelMenu.Button {
     _init() {
@@ -75,9 +73,15 @@ function setButtonText() {
     panelButtonText.set_text(counter.toString());*/
     
     /*通过终端命令 curl 调取一言 api 获取短句*/
-    var [ok, out, err, exit] = GLib.spawn_command_line_sync('curl -s https://v1.hitokoto.cn/?encode=text');
+    /*var [ok, out, err, exit] = GLib.spawn_command_line_sync('curl -s https://v1.hitokoto.cn/?encode=text');*/
+    
+    let sessionSync = new Soup.SessionSync();
+    let msg = Soup.Message.new('GET', 'https://v1.hitokoto.cn/?encode=text');
+    sessionSync.send_message(msg);
+    print("==========================================>>>>"+msg.response_body.data);
     /*将短句进行格式化，取出尾部换行符*/
-    panelButtonText.set_text(ByteArray.toString(out).replace(/[。.？?！!]|\n/, ''));
+    /*panelButtonText.set_text(ByteArray.toString(out).replace(/[。.？?！!]|\n/, ''));*/
+    panelButtonText.set_text(msg.response_body.data.replace(/[。.？?！!]|\n/, ''));
     return true;
 }
 
@@ -94,7 +98,6 @@ class Extension {
         /*在开启插件的时候计时开始,10 秒运行一次*/
         timeout = Mainloop.timeout_add_seconds(10, setButtonText);
         return true;
-
     }
 
     disable() {
