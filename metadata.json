@@ -3,7 +3,7 @@
   "description": "一言短句",
   "uuid": "Hitokoto@teaper.dev",
   "shell-version": [
-    "40"
+    "41.1"
   ],
   "url": "https://github.com/teaper/gnome-shell-extension-hitokoto",
   "version": 1

@@ -78,7 +78,7 @@ function setButtonText() {
     let sessionSync = new Soup.SessionSync();
     let msg = Soup.Message.new('GET', 'https://v1.hitokoto.cn/?encode=text');
     sessionSync.send_message(msg);
-    print("==========================================>>>>"+msg.response_body.data);
+    // print("==========================================>>>>"+msg.response_body.data);
     /*将短句进行格式化，取出尾部换行符*/
     /*panelButtonText.set_text(ByteArray.toString(out).replace(/[。.？?！!]|\n/, ''));*/
     panelButtonText.set_text(msg.response_body.data.replace(/[。.？?！!]|\n/, ''));
